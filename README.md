@@ -1,2 +1,4 @@
 # Nested_Rectangles
-Loads a xml file into SDL2.
+
+Loads an XML file and renders it with SDL.
+
