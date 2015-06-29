@@ -13,7 +13,7 @@ file_endings = (".dat", ".xml", ".ini", ".md", ".cmake", ".py")
 library_endings = (".dll", ".a", ".lib", ".dylib", ".so")
 code_endings = (".c", ".C", ".c++", ".cc", ".cxx", ".cpp")
 header_endings = (".h", ".H", ".h++", ".hh", ".hxx", ".hpp")
-file_names = ("CMakeLists.txt", "deleted_files.txt")
+file_names = ("CMakeLists.txt", "deleted_files.txt", "Makefile", "makefile", "GNUmakefile")
 file_patterns = ("*license*", "*LICENSE*", "*License*", 
                  "*readme*", "*README*", "*Readme*", "*ReadMe*",
                  "*copying*", "*COPYING*", "*Copying*",
