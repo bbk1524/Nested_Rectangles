@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 29 09:57:39 2015
+
+@author: Ben
+"""
+import os
+import fnmatch
+
+# Things to keep
+file_endings = (".dat", ".xml", ".ini", ".md", ".cmake", ".py")
+library_endings = (".dll", ".a", ".lib", ".dylib", ".so")
+code_endings = (".c", ".C", ".c++", ".cc", ".cxx", ".cpp")
+header_endings = (".h", ".H", ".h++", ".hh", ".hxx", ".hpp")
+file_names = ("CMakeLists.txt")
+file_patterns = ("*license*", "*LICENSE*", "*License*", 
+                 "*readme*", "*README*", "*Readme*", "*ReadMe*",
+                 "*copying*", "*COPYING*", "*Copying*",
+                 "*notice*", "*NOTICE*", "*Notice*",
+                 "*authors*", "*AUTHORS*", "*Authors*")
+
+def wanted_file(name):
+    for pattern in file_patterns:
+        if fnmatch.fnmatch(name, pattern):
+            return True
+    
+    return (name.endswith(file_endings) or name.endswith(code_endings) or
+                name.endswith(header_endings) or name.endswith(library_endings) 
+                or name in file_names)
+
+def print_files(root_dir):
+    print("@"*15)
+    for root, dirs, files in os.walk(root_dir):
+        for name in files:
+            if not wanted_file(name):
+                print(os.path.join(root, name).replace(root_dir, '.'))
+    print("@"*15)
+
+def delete_files(root_dir):
+    print("Deleting ... ")
+    for root, dirs, files in os.walk(root_dir):
+        for name in files:
+            if not wanted_file(name):
+                print(os.path.join(root, name).replace(root_dir, '.'))
+                os.remove(os.path.join(root, name))
+                #pass
+				
+# Use location of script as root directory
+root_dir = os.path.dirname(os.path.realpath(__file__))
+
+def make_choice():
+    text = """
+    Root directory: {}
+    About to delete all files not ending in:
+        {}
+        {}
+        {}
+        {}
+    or with on of the names in:
+        {}
+    or names matching the pattern of:
+        {}
+    Root directory: {}
+    Type 'c' to see files that will be deleted.
+    Continue [y/c/n]?
+    """.strip().format(root_dir, file_endings, library_endings, code_endings, 
+                        header_endings, file_names, file_patterns, root_dir)
+    
+    choice = input(text)
+    return choice
+
+def main():
+    choice = make_choice()
+    while choice == 'c':
+        print_files(root_dir)
+        choice = make_choice()
+    if choice == 'y':
+        delete_files(root_dir)
+        
+main()        

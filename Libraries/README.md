@@ -23,3 +23,7 @@ By doing this, the project will build faster, but you will lose functionality.
 **tinyxml_2_6_2.zip** should be unzipped inside tinyxml/
 Additionally, to use the STL component of tinyxml, place a 
 `#define TIXML_USE_STL` at the top of **tinyxml/tinyxml.h**
+
+
+To "trim" the folders of unnecessary files, run `trim_libraries.py`.
+Please, ***PAY CLOSE ATTENTION TO THE FILES BEING DELETED!***
