@@ -23,7 +23,7 @@ distribution.
 */
 
 //BEN ADDED!!
-#define TIXML_USE_STL
+//#define TIXML_USE_STL
 
 #ifndef TINYXML_INCLUDED
 #define TINYXML_INCLUDED
