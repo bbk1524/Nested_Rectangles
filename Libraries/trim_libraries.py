@@ -13,7 +13,7 @@ file_endings = (".dat", ".xml", ".ini", ".md", ".cmake", ".py")
 library_endings = (".dll", ".a", ".lib", ".dylib", ".so")
 code_endings = (".c", ".C", ".c++", ".cc", ".cxx", ".cpp")
 header_endings = (".h", ".H", ".h++", ".hh", ".hxx", ".hpp")
-file_names = ("CMakeLists.txt")
+file_names = ("CMakeLists.txt", "deleted_files.txt")
 file_patterns = ("*license*", "*LICENSE*", "*License*", 
                  "*readme*", "*README*", "*Readme*", "*ReadMe*",
                  "*copying*", "*COPYING*", "*Copying*",
@@ -39,12 +39,15 @@ def print_files(root_dir):
 
 def delete_files(root_dir):
     print("Deleting ... ")
+    file = open("deleted_files.txt", 'a')
     for root, dirs, files in os.walk(root_dir):
         for name in files:
             if not wanted_file(name):
                 print(os.path.join(root, name).replace(root_dir, '.'))
+                file.write(os.path.join(root, name).replace(root_dir, '.') + '\n')
                 os.remove(os.path.join(root, name))
                 #pass
+    file.close()
 				
 # Use location of script as root directory
 root_dir = os.path.dirname(os.path.realpath(__file__))
