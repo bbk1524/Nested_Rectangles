@@ -9,7 +9,18 @@ set(GAME_NAME Nested_Rectangles)
 # )
 
 add_executable(${GAME_NAME}
-	NestedRectangles.cpp
+	Source.cpp
+	Box.h
+	Box.cpp
+	Game.h
+	Game.cpp
+	GraphicsSystem.h
+	GraphicsSystem.cpp
+	Definitions.h
+	Screen.h
+	Screen.cpp
+	InputSystem.h
+	InputSystem.cpp
 )
 
 # Includes..

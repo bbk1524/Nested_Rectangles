@@ -97,12 +97,6 @@ find_library(SDL2_TTF_LIBRARY NAMES SDL2_ttf
 # Add tinyXML
 add_subdirectory(Libraries/tinyxml EXCLUDE_FROM_ALL)
 
-# Add Box2D. Using the LiquidFun version instead
-# add_subdirectory(Libraries/Box2D_v2.1.2/Box2D EXCLUDE_FROM_ALL)
-
-# Add LiquidFun version of Box2D
-# add_subdirectory(Libraries/liquidfun-1.1.0/liquidfun/Box2D EXCLUDE_FROM_ALL)
-
 # Add SDL2_gfx 
 add_subdirectory(Libraries/SDL2_gfx EXCLUDE_FROM_ALL)
 
