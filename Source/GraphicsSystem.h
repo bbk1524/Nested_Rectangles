@@ -24,7 +24,7 @@ public:
 
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 
-		IMG_Init(IMG_INIT_PNG);
+		// IMG_Init(IMG_INIT_PNG);
 
 		window = SDL_CreateWindow(
 			window_name.c_str(),
