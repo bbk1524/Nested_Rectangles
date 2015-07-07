@@ -9,16 +9,20 @@
 #include "Box.h"
 #include "tinyxml/tinyxml.h"
 #include <algorithm>
+//TODO: rm
+#include <SDL.h>
+#include <SDL_image.h>
+
 
 class Screen {
 public:
 
+    SDL_Rect scale;
+    SDL_Texture * tex;
+
 	std::vector<Box> boxes;
 
-	Screen() 
-	{
-
-	}
+	Screen() = default;
 
 	~Screen() = default;
 
@@ -39,8 +43,33 @@ public:
 			LOG_ERROR("Can't find box. Element found: %s", hDoc.FirstChildElement().Element()->Value());
 			return false;
 		}
-		return create_box_tree(nullptr, graphics_system.get_renderer(), node);
+		create_box_tree(nullptr, graphics_system.get_renderer(), node);
+                //TODO: rm
+                load_image();
+                return true;
 	}
+
+        //TODO: move a Texture into it's own class
+        void load_image()
+        {
+		std::string image_path = "./Assets/Images/hello.bmp";
+		SDL_Surface * bmp = SDL_LoadBMP(image_path.c_str());
+		tex = SDL_CreateTextureFromSurface(graphics_system.get_renderer(), bmp);
+                SDL_FreeSurface(bmp);
+		// SDL_RenderClear(screen.graphics_system.get_renderer());
+		// Box * b;
+		// b = (screen.get_box_by_name("Game")); 
+		// std::cout << *b; //this is where it's failing ^ ^ 
+		// scale.x = b->x1;
+		// scale.y = b->y1;
+		// scale.w = b->x2 - b->x1;
+		// scale.h = b->y2 - b->y1;
+
+		scale.x = 0;
+		scale.y = 0;
+		scale.w = 100;
+		scale.h = 100;
+        }
 
 	bool destroy() {
 		return true;
@@ -54,6 +83,11 @@ public:
 			//std::cout << b;
 			b.draw();
 		}
+
+                //TODO: rm
+                // draw the bmp (this has to be horribly inefficient
+		SDL_RenderCopy(graphics_system.get_renderer(), tex, NULL, &scale);
+
 		graphics_system.present();
 	}
 

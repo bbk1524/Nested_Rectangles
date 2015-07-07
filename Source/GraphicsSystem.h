@@ -21,10 +21,9 @@ public:
 	//TODO: make this actually check for errors
 	bool init(std::string window_name, int window_width, int window_height)
 	{
+            // move the SDL_Init stuff to Game so I can add
+            // systems in order
 
-		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
-
-		// IMG_Init(IMG_INIT_PNG);
 
 		window = SDL_CreateWindow(
 			window_name.c_str(),
@@ -42,13 +41,13 @@ public:
 	bool destroy()
 	{
 		SDL_DestroyWindow(window);
-		SDL_Quit();
+                return true;
 	}
 
 	void begin() 
 	{
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderClear(renderer);
+		SDL_RenderClear(renderer); //TODO: get this back...
 	}
 
 	void draw() 

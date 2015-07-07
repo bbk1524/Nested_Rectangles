@@ -17,6 +17,11 @@ public:
 	{
 		quit = false;
 
+                //init libraries at top level
+		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+
+		IMG_Init(IMG_INIT_PNG);
+
 		const char* layout_file = "./Config/layout.xml";
 		screen.init(layout_file);
 		input_system.init();
@@ -26,21 +31,23 @@ public:
 		// std::string image_path = "./Assets/Images/hello.bmp";
 		// SDL_Surface * bmp = SDL_LoadBMP(image_path.c_str());
 		// tex = SDL_CreateTextureFromSurface(screen.graphics_system.get_renderer(), bmp);
-		// SDL_RenderClear(screen.graphics_system.get_renderer());
-		// Box * b;
-		// b = (screen.get_box_by_name("Game")); 
-		// std::cout << *b; //this is where it's failing ^ ^ 
+		// // SDL_RenderClear(screen.graphics_system.get_renderer());
+		// // Box * b;
+		// // b = (screen.get_box_by_name("Game")); 
+		// // std::cout << *b; //this is where it's failing ^ ^ 
 		// SDL_Rect scale;
-		// scale.x = b->x1;
-		// scale.y = b->y1;
-		// scale.w = b->x2 - b->x1;
-		// scale.h = b->y2 - b->y1;
+		// // scale.x = b->x1;
+		// // scale.y = b->y1;
+		// // scale.w = b->x2 - b->x1;
+		// // scale.h = b->y2 - b->y1;
 
-		// //scale.x = 0;
-		// //scale.y = 0;
-		// //scale.w = 100;
-		// //scale.h = 100;
+		// scale.x = 0;
+		// scale.y = 0;
+		// scale.w = 100;
+		// scale.h = 100;
+
 		// SDL_RenderCopy(screen.graphics_system.get_renderer(), tex, NULL, &scale);
+		// // SDL_RenderCopy(screen.graphics_system.get_renderer(), tex, NULL, &scale);
 		// SDL_RenderPresent(screen.graphics_system.get_renderer());
 		// SDL_Delay(2000);
 		return true;
@@ -49,6 +56,11 @@ public:
 	bool destroy()
 	{
 		screen.destroy();
+
+                //stop libraries
+                IMG_Quit();
+		SDL_Quit();
+
 		return true;
 	}
 
