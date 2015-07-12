@@ -17,11 +17,6 @@ public:
 	{
 		quit = false;
 
-                //init libraries at top level
-		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
-
-		IMG_Init(IMG_INIT_PNG);
-
 		const char* layout_file = "./Config/layout.xml";
 		screen.init(layout_file);
 		input_system.init();
@@ -56,10 +51,6 @@ public:
 	bool destroy()
 	{
 		screen.destroy();
-
-                //stop libraries
-                IMG_Quit();
-		SDL_Quit();
 
 		return true;
 	}
@@ -106,7 +97,6 @@ private:
 	bool quit;
 	Screen screen;
 	Input_System input_system;
-	// SDL_Texture * tex; //TODO: get rid of this;
 };
 
 #endif 

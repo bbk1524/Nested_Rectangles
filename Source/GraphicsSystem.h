@@ -21,8 +21,8 @@ public:
 	//TODO: make this actually check for errors
 	bool init(std::string window_name, int window_width, int window_height)
 	{
-            // move the SDL_Init stuff to Game so I can add
-            // systems in order
+			// move the SDL_Init stuff to Game so I can add
+			// systems in order
 
 
 		window = SDL_CreateWindow(
@@ -40,8 +40,9 @@ public:
 	//I'm assuming that this is the last system to end;
 	bool destroy()
 	{
+		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
-                return true;
+		return true;
 	}
 
 	void begin() 

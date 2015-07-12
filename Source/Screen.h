@@ -13,12 +13,14 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "Texture.h"
 
 class Screen {
 public:
 
-    SDL_Rect scale;
-    SDL_Texture * tex;
+	//SDL_Rect scale;
+	//SDL_Texture * tex;
+	Texture image;
 
 	std::vector<Box> boxes;
 
@@ -44,34 +46,37 @@ public:
 			return false;
 		}
 		create_box_tree(nullptr, graphics_system.get_renderer(), node);
-                //TODO: rm
-                load_image();
-                return true;
+		//TODO: rm
+		//load_image();
+		Texture image;
+		image.init(graphics_system.get_renderer(), "./Assets/Images/hello.bmp");
+		return true;
 	}
 
-        //TODO: move a Texture into it's own class
-        void load_image()
-        {
-		std::string image_path = "./Assets/Images/hello.bmp";
-		SDL_Surface * bmp = SDL_LoadBMP(image_path.c_str());
-		tex = SDL_CreateTextureFromSurface(graphics_system.get_renderer(), bmp);
-                SDL_FreeSurface(bmp);
-		// SDL_RenderClear(screen.graphics_system.get_renderer());
-		// Box * b;
-		// b = (screen.get_box_by_name("Game")); 
-		// std::cout << *b; //this is where it's failing ^ ^ 
-		// scale.x = b->x1;
-		// scale.y = b->y1;
-		// scale.w = b->x2 - b->x1;
-		// scale.h = b->y2 - b->y1;
+	//TODO: move a Texture into it's own class
+	//void load_image()
+	//{
+	//	std::string image_path = "./Assets/Images/hello.bmp";
+	//	SDL_Surface * bmp = SDL_LoadBMP(image_path.c_str());
+	//	tex = SDL_CreateTextureFromSurface(graphics_system.get_renderer(), bmp);
+	//	SDL_FreeSurface(bmp);
+	//	// SDL_RenderClear(screen.graphics_system.get_renderer());
+	//	// Box * b;
+	//	// b = (screen.get_box_by_name("Game")); 
+	//	// std::cout << *b; //this is where it's failing ^ ^ 
+	//	// scale.x = b->x1;
+	//	// scale.y = b->y1;
+	//	// scale.w = b->x2 - b->x1;
+	//	// scale.h = b->y2 - b->y1;
 
-		scale.x = 0;
-		scale.y = 0;
-		scale.w = 100;
-		scale.h = 100;
-        }
+	//	scale.x = 0;
+	//	scale.y = 0;
+	//	scale.w = 100;
+	//	scale.h = 100;
+	//}
 
 	bool destroy() {
+		graphics_system.destroy();
 		return true;
 	}
 
@@ -84,9 +89,11 @@ public:
 			b.draw();
 		}
 
-                //TODO: rm
-                // draw the bmp (this has to be horribly inefficient
-		SDL_RenderCopy(graphics_system.get_renderer(), tex, NULL, &scale);
+		//TODO: rm
+		// draw the bmp (this has to be horribly inefficient
+		//SDL_RenderCopy(graphics_system.get_renderer(), tex, NULL, &scale);
+		//image.draw();
+		SDL_RenderCopy(graphics_system.get_renderer(), image.texture, NULL, NULL);
 
 		graphics_system.present();
 	}
@@ -118,7 +125,7 @@ public:
 		//use std::find_if here.
 	}
 
-//private:
+	//private:
 	Graphics_System graphics_system;
 };
 

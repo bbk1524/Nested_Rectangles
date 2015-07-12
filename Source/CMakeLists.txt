@@ -21,6 +21,8 @@ add_executable(${GAME_NAME}
 	Screen.cpp
 	InputSystem.h
 	InputSystem.cpp
+	Texture.h
+	Texture.cpp
 )
 
 # Includes..
