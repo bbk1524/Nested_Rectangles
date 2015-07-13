@@ -5,10 +5,14 @@
 #include "InputSystem.h"
 #include "Screen.h"
 #include "Definitions.h"
-
+#include "Texture.h"
 
 class Game {
 public:
+
+	//TODO: rm
+	Texture image;
+
 	Game() = default;
 	~Game() = default;
 
@@ -19,10 +23,9 @@ public:
 		const char* layout_file = "./Config/layout.xml";
 		screen.init(layout_file);
 		input_system.init();
+		
+		image.init(screen.graphics_system.get_renderer(), "./Assets/Images/hello.bmp", *screen.get_box_by_name("Inner Left"));
 
-		//TODO: rm
-		Box * tmp = screen.get_box_by_name("Game");
-		std::cout << *tmp;
 		return true;
 	}
 
@@ -41,7 +44,19 @@ public:
 		{
 			quit = true;
 		}
-		screen.draw();
+
+		draw();
+	}
+
+	void draw()
+	{
+		screen.graphics_system.begin();
+
+		screen.draw_boxes();
+
+		image.draw();
+
+		screen.graphics_system.present();
 	}
 
 	//gimme all da frames

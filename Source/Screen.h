@@ -15,8 +15,6 @@
 
 class Screen {
 public:
-	//I eventually don't want this in screen
-	Texture image;
 
 	std::vector<Box> boxes;
 
@@ -43,8 +41,6 @@ public:
 		}
 		create_box_tree(nullptr, graphics_system.get_renderer(), node);
 		
-		//init Texture image
-		image.init(graphics_system.get_renderer(), "./Assets/Images/hello.bmp");
 		return true;
 	}
 
@@ -53,18 +49,13 @@ public:
 		return true;
 	}
 
-	void draw()
+	void draw_boxes()
 	{
-		graphics_system.begin();
 		for (auto b : boxes)
 		{
 			//std::cout << b;
 			b.draw();
 		}
-
-		//draw
-		image.draw();
-		graphics_system.present();
 	}
 
 	bool create_box_tree(Box* parent, SDL_Renderer* renderer, TiXmlElement* node)

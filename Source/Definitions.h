@@ -13,6 +13,18 @@ const int G_WINDOW_HEIGHT = 600;
 
 enum class game_event
 {
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	ALT_LEFT,
+	ALT_RIGHT,
+	ALT_UP,
+	ALT_DOWN,
+	ACTION_ONE,
+	ACTION_TWO,
+	LEFT_MOUSE_DOWN,
+	RIGHT_MOUSE_DOWN,
 	QUIT
 };
 

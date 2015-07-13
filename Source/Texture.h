@@ -19,6 +19,20 @@ public:
 	
 	~Texture() = default;
 
+	bool init(SDL_Renderer * renderer, std::string image_path, Box & box)
+	{
+		this->renderer = renderer;
+		SDL_Surface * bmp = SDL_LoadBMP(image_path.c_str());
+		this->texture = SDL_CreateTextureFromSurface(renderer, bmp);
+		SDL_FreeSurface(bmp);
+		scale.x = box.x1;
+		scale.y = box.y1;
+		scale.w = box.x2 - box.x1;
+		scale.h = box.y2 - box.y1;
+	
+		return true;
+	}
+
 	bool init(SDL_Renderer * renderer, std::string image_path)
 	{
 		this->renderer = renderer;
@@ -44,7 +58,7 @@ public:
 	{
 		SDL_RenderCopy(renderer, texture, NULL, &scale);
 	}
-//private:
+private:
 	SDL_Renderer * renderer;
 	SDL_Rect scale;
 	SDL_Texture * texture;
