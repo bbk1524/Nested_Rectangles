@@ -20,6 +20,8 @@ std::string get_base_path()
 	}
 }
 
+const std::string base_path = get_base_path();
+
 //You can format arguments using printf notations: EX: LOG_ERROR("problem with file %s", filename);
 //See http://c.learncodethehardway.org/book/ex20.html for more detail
 // Formatted strings must be char* (call std::string::c_str() on std::string)
