@@ -1,5 +1,5 @@
 # Name the Project and give files
-set(GAME_NAME Nested_Rectangles)
+# set(GAME_NAME Nested_Rectangles)
 
 project(Game_Name)
 
@@ -10,7 +10,7 @@ project(Game_Name)
 	# ".h"
 # )
 
-add_executable(${GAME_NAME}
+add_executable(${PROJECT_NAME}
 	Source.cpp
 	Box.h
 	Box.cpp
@@ -39,7 +39,7 @@ include_directories(
 )
 
 # What it should link against
-target_link_libraries(${GAME_NAME}
+target_link_libraries(${PROJECT_NAME}
 	${SDL2_LIBRARY} ${SDL2MAIN_LIBRARY}
 	${SDL2_IMAGE_LIBRARY}
 #	${SDL2_MIXER_LIBRARY}
@@ -51,35 +51,18 @@ target_link_libraries(${GAME_NAME}
 
 # Compile for C++ 11. CMake doesn't know that VS does this by default and whines
 if(NOT MSVC)
-	set_property(TARGET ${GAME_NAME} PROPERTY CXX_STANDARD 11)
-	set_property(TARGET ${GAME_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
+	set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
+	set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
 endif()
 
 # Tell VS where to build the executable for both debug and release versions
-set_target_properties(${GAME_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Game")
-set_target_properties(${GAME_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/Game")
-set_target_properties(${GAME_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/Game")
-
-# Not needed now
-#ADD_CUSTOM_COMMAND(TARGET ${GAME_NAME} POST_BUILD
-#	COMMAND
-#	
-#	# Copy Assets where both VS can find them (it doesn't look in the Game folder) and the Game folder
-#	file(COPY "${CMAKE_SOURCE_DIR}/Assets" DESTINATION ${PROJECT_BINARY_DIR}/Source)
-#	file(COPY "${CMAKE_SOURCE_DIR}/Assets" DESTINATION ${CMAKE_SOURCE_DIR}/Game)
-#
-#	# Copy Config where both VS can find them (it doesn't look in the Game folder) and the Game folder
-#	file(COPY "${CMAKE_SOURCE_DIR}/Config" DESTINATION ${PROJECT_BINARY_DIR}/Source)
-#	file(COPY "${CMAKE_SOURCE_DIR}/Config" DESTINATION ${CMAKE_SOURCE_DIR}/Game)
-#)
-
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Game")
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_SOURCE_DIR}/Game")
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/Game")
 
 # These copies need to be run every time the game is compiled in case something changed
-# I'm also copying them to where VS can find them
-ADD_CUSTOM_COMMAND(TARGET ${GAME_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Config ${PROJECT_BINARY_DIR}/Source/Config/
+ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Config ${CMAKE_SOURCE_DIR}/Game/Config/
-	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Assets ${PROJECT_BINARY_DIR}/Source/Assets/
 	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Assets ${CMAKE_SOURCE_DIR}/Game/Assets/
 )
 
@@ -93,6 +76,6 @@ if(MSVC)
 	)
 	
 	# Important to note that this happens at the cmake step, not the games compilation.
-	# If these are removed, re-run cmake to get them back.
+	# If you remove these, re-run cmake to get them back.
 	file(COPY ${X86_DLL_FILES} DESTINATION ${CMAKE_SOURCE_DIR}/Game)
 endif()
