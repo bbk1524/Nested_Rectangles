@@ -1,6 +1,8 @@
 # Name the Project and give files
 set(GAME_NAME Nested_Rectangles)
 
+project(Game_Name)
+
 # I could use this to get all files, but then it wouldn't include headers in the file tree
 # or automatically find new files
 # file(GLOB CPP_HEADER_SOURCES

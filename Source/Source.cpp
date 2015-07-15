@@ -4,7 +4,8 @@
 
 int main (int argc, char** argv)
 {
-	//init libraries at the top level so I can avoid having to init systems in an order
+
+	//init libraries at the top level to avoid game system dependencies and because I'm using SDL_main anyway
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 	IMG_Init(IMG_INIT_PNG);
 

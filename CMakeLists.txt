@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 # Solution name
-project(Nested_Rectangles)
+project(Solution_Name)
 
 # Find dynamic libraries
 # include dynamic libraries with:

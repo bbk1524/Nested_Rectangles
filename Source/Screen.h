@@ -10,7 +10,6 @@
 #include "GraphicsSystem.h"
 #include "Box.h"
 #include "tinyxml/tinyxml.h"
-#include <algorithm>
 #include "Texture.h"
 
 class Screen {
@@ -22,14 +21,14 @@ public:
 
 	~Screen() = default;
 
-	bool init(const char* layout_file)
+	bool init(std::string layout_file)
 	{
 		graphics_system.init("Boxes", G_WINDOW_WIDTH, G_WINDOW_HEIGHT);
 
-		TiXmlDocument doc(layout_file);
+		TiXmlDocument doc(layout_file.c_str());
 		if (!doc.LoadFile())
 		{
-			LOG_ERROR("Can't find file : %s", layout_file);
+			LOG_ERROR("Can't find file : %s", layout_file.c_str());
 			return false;
 		}
 		TiXmlElement* node = doc.FirstChildElement("box");

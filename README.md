@@ -12,4 +12,6 @@ mkdir Build
 cd Build
 cmake -G "Visual Studio 12" ..
 ```
-
+# Notes and TODOs
+Instead of copying Assets/ to a folder where Visual Studio or make can find it, I'm going to use SDL_GetBasePath()
+to do it.

@@ -19,12 +19,12 @@ public:
 	bool init()
 	{
 		quit = false;
-
-		const char* layout_file = "./Config/layout.xml";
-		screen.init(layout_file);
+		const std::string layout_path = get_base_path() + "Config/layout.xml";
+		screen.init(layout_path);
 		input_system.init();
-		
-		image.init(screen.graphics_system.get_renderer(), "./Assets/Images/hello.bmp", *screen.get_box_by_name("Inner Left"));
+		const std::string image_path = get_base_path() + "Assets/Images/hello.bmp";
+
+		image.init(screen.graphics_system.get_renderer(), image_path, *screen.get_box_by_name("Inner Left"));
 
 		return true;
 	}
