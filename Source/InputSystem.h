@@ -32,6 +32,19 @@ public:
 		current_events[game_event::RIGHT_MOUSE_DOWN] = false;
 		//quit
 		current_events[game_event::QUIT] = false;
+
+		//translate SDL_Events of type key to Game_Events (not as fast as switch-case, but cleaner)
+		tr_key[SDLK_LEFT] = game_event::LEFT;
+		tr_key.emplace(SDLK_RIGHT, game_event::RIGHT);
+		tr_key.emplace(SDLK_LEFT, game_event::LEFT);
+		tr_key.emplace(SDLK_UP, game_event::UP);
+		tr_key.emplace(SDLK_DOWN, game_event::DOWN);
+		//TODO: add the rest of my keys. 
+
+		//do that for mouse buttons too
+		tr_mouse.emplace(SDL_BUTTON_LEFT, game_event::LEFT_MOUSE_DOWN);
+		tr_mouse.emplace(SDL_BUTTON_RIGHT, game_event::RIGHT_MOUSE_DOWN);
+
 		return true;
 	}
 
@@ -53,27 +66,8 @@ public:
 				//set is_dwon to whether the key is being pressed
 				bool is_down = event.type == SDL_KEYDOWN;
 
-				switch (event.key.keysym.sym)
-				{
-				case SDLK_LEFT:
-					current_events[game_event::LEFT] = is_down;
-					break;
-
-				case SDLK_RIGHT:
-					current_events[game_event::RIGHT] = is_down;
-					break;
-
-				case SDLK_UP:
-					current_events[game_event::UP] = is_down;
-					break;
-
-				case SDLK_DOWN:
-					current_events[game_event::DOWN] = is_down;
-					break;
-
-				//TODO: finish the buttons
-
-				}
+				//get the right game event, and map it to the bool
+				current_events[tr_key[event.key.keysym.sym]] = is_down;
 			}
 
 
@@ -82,16 +76,7 @@ public:
 			{
 				bool is_down = event.type == SDL_MOUSEBUTTONDOWN;
 
-				switch (event.button.button)
-				{
-				case SDL_BUTTON_LEFT:
-					current_events[game_event::LEFT_MOUSE_DOWN] = is_down;
-					break;
-				case SDL_BUTTON_RIGHT:
-					current_events[game_event::RIGHT_MOUSE_DOWN] = is_down;
-					break;
-				}
-
+				current_events[tr_mouse[event.button.button]] = is_down;
 			}
 
 			//handle mouse motion
@@ -122,6 +107,9 @@ public:
 private:
 	std::map<game_event, bool> current_events;
 	SDL_Event event;
+	//relying on the fact that an enum is implicitly converted to an int...
+	std::map<int, game_event> tr_key;
+	std::map<int, game_event> tr_mouse;
 	int mouse_x;
 	int mouse_y;
 };
