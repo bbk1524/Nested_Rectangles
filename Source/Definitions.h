@@ -29,7 +29,7 @@ const std::string base_path = get_base_path();
 
 //global variables yay!
 
-const int G_WINDOW_WIDTH = 800;
+const int G_WINDOW_WIDTH = 800; //TODO: change this to read from an ini file. Maybe make it a field of Screen?
 const int G_WINDOW_HEIGHT = 600;
 
 enum class game_event
