@@ -12,10 +12,10 @@ project(Solution_Name)
 # target_link_libraries(<target_name> ${<dynamic_library_name>_INCLUDE_DIR})
 
 #Set places to look for dynamic libraries
-set(SDL2_WIN "${CMAKE_SOURCE_DIR}/Libraries/SDL2-2.0.3")
-set(SDL2_IMAGE_WIN "${CMAKE_SOURCE_DIR}/Libraries/SDL2_image-2.0.0")
-set(SDL2_MIXER_WIN "${CMAKE_SOURCE_DIR}/Libraries/SDL2_mixer-2.0.0")
-set(SDL2_TTF_WIN "${CMAKE_SOURCE_DIR}/Libraries/SDL2_ttf-2.0.12")
+set(SDL2_WIN "${CMAKE_SOURCE_DIR}/lib/SDL2-2.0.3")
+set(SDL2_IMAGE_WIN "${CMAKE_SOURCE_DIR}/lib/SDL2_image-2.0.0")
+set(SDL2_MIXER_WIN "${CMAKE_SOURCE_DIR}/lib/SDL2_mixer-2.0.0")
+set(SDL2_TTF_WIN "${CMAKE_SOURCE_DIR}/lib/SDL2_ttf-2.0.12")
 
 set(SDL2_INCLUDE_MAC "/usr/local/include/SDL2")
 set(SDL_LIB_MAC "/usr/local/lib")
@@ -95,13 +95,15 @@ find_library(SDL2_TTF_LIBRARY NAMES SDL2_ttf
 # target_link_libraries(<target_name> <static_library_name>) #no ${} needed 
 
 # Add tinyXML
-add_subdirectory(Libraries/tinyxml EXCLUDE_FROM_ALL)
+add_subdirectory(lib/tinyxml EXCLUDE_FROM_ALL)
 
 # Add SDL2_gfx 
-add_subdirectory(Libraries/SDL2_gfx EXCLUDE_FROM_ALL)
+add_subdirectory(lib/SDL2_gfx EXCLUDE_FROM_ALL)
 
-# Add Project Folder
-add_subdirectory(Source)
+add_subdirectory(assets)
 
 # Add config
-add_subdirectory(Config)
+add_subdirectory(config)
+
+# Add Project Folder
+add_subdirectory(src)
