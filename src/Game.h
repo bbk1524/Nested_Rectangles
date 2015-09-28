@@ -13,21 +13,19 @@ public:
 	//TODO: rm
 	Texture image;
 
-	Game() = default;
-	~Game() = default;
-
-	bool init()
+	Game()
+		: screen(base_path + "config/layout.xml")
 	{
-		quit = false;
-		const std::string layout_path = base_path + "Config/layout.xml";
-		screen.init(layout_path);
+		const std::string layout_path = base_path + "config/layout.xml";
 		input_system.init();
-		const std::string image_path = base_path + "Assets/Images/hello.bmp";
-
-		image.init(screen.graphics_system.get_renderer(), image_path, *screen.get_box_by_name("Inner Left"));
-
-		return true;
+		const std::string image_path = base_path + "assets/images/hello.bmp";
+		image.init(screen.graphics_system.get_renderer(), image_path, *screen.get_box_by_name("Game"));
+		if (!(screen.is_valid() && image.is_valid() && input_system.is_valid()))
+		{
+			valid = false;
+		}
 	}
+	~Game() = default;
 
 	bool destroy()
 	{
@@ -68,8 +66,14 @@ public:
 		}
 	}
 
+	bool is_valid() const
+	{
+		return valid;
+	}
+
 private:
-	bool quit;
+	bool quit{ false };
+	bool valid{ true };
 	Screen screen;
 	Input_System input_system;
 };

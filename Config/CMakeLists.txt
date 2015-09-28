@@ -3,6 +3,7 @@ project(config)
 add_custom_target(config
 	SOURCES
 	layout.xml
+	Notes.md
 )
 
 # If a file in Config or Assets is changed, re-build this project to copy them to the right places

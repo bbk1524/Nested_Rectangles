@@ -1,5 +1,6 @@
 _build/
-Build/
 Game/
 bin/
-build/
+/build*/
+.ycm_extra_conf.py
+*.pyc

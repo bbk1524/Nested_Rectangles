@@ -68,9 +68,15 @@ public:
 		return window;
 	}
 
+	bool is_valid() const
+	{
+		return valid;
+	}
+
 private:
 	SDL_Renderer* renderer;
 	SDL_Window* window;
+	bool valid{ true };
 };
 
 #endif 

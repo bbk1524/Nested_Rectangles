@@ -62,10 +62,17 @@ public:
 	{
 		SDL_RenderCopy(renderer, texture, NULL, &scale);
 	}
+
+	bool is_valid() const
+	{
+		return valid;
+	}
+
 private:
 	SDL_Renderer * renderer;
 	SDL_Rect scale;
 	SDL_Texture * texture;
+	bool valid{ true };
 };
 
 #endif

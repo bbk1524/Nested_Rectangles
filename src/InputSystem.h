@@ -104,6 +104,11 @@ public:
 		return mouse_y;
 	}
 
+	bool is_valid() const
+	{
+		return valid;
+	}
+
 private:
 	std::map<game_event, bool> current_events;
 	SDL_Event event;
@@ -112,6 +117,7 @@ private:
 	std::map<int, game_event> tr_mouse;
 	int mouse_x;
 	int mouse_y;
+	bool valid{ true };
 };
 
 #endif

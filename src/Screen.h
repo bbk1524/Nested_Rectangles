@@ -17,7 +17,10 @@ public:
 
 	std::vector<Box> boxes;
 
-	Screen() = default;
+	Screen(std::string layout_file)
+	{
+		valid = init(layout_file);
+	}
 
 	~Screen() = default;
 
@@ -28,18 +31,18 @@ public:
 		TiXmlDocument doc(layout_file.c_str());
 		if (!doc.LoadFile())
 		{
-			LOG_ERROR("Can't find file : %s", layout_file.c_str());
+			logger.log("Can't find file : %s", layout_file.c_str());
 			return false;
 		}
 		TiXmlElement* node = doc.FirstChildElement("box");
 		if (!node)
 		{
 			TiXmlHandle hDoc(&doc);
-			LOG_ERROR("Can't find box. Element found: %s", hDoc.FirstChildElement().Element()->Value());
+			logger.log("Can't find box. Element found: %s", hDoc.FirstChildElement().Element()->Value());
 			return false;
 		}
 		create_box_tree(nullptr, graphics_system.get_renderer(), node);
-		
+
 		return true;
 	}
 
@@ -62,7 +65,7 @@ public:
 		Box b;
 		if (!b.init(parent, renderer, node))
 		{
-			LOG_ERROR("Bad node");
+			logger.log("Bad node");
 			return false;
 		}
 		boxes.push_back(b);
@@ -78,7 +81,7 @@ public:
 
 		return true;
 	}
-	
+
 	Box * get_box_by_name(std::string name)
 	{
 		//doing this by hand is actually shorter and cleaner than std::find_if
@@ -97,8 +100,14 @@ public:
 		return result;
 	}
 
+	bool is_valid() const
+	{
+		return valid;
+	}
 	//private:
 	Graphics_System graphics_system;
+	bool valid{ true };
+
 };
 
 

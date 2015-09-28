@@ -1,11 +1,12 @@
 #ifndef BOX_H
 #define BOX_H
 
+#include "Definitions.h"
+
 #include <SDL.h>
 #include <string>
 #include <SDL2_gfx-1.0.1/SDL2_gfxPrimitives.h>
 #include <tinyxml/tinyxml.h>
-#include "Definitions.h"
 
 class Box
 {
@@ -20,6 +21,8 @@ public:
 	Uint8 g;
 	Uint8 b;
 	Uint8 a;
+	bool valid{ true };
+
 
 	bool draw()
 	{
@@ -135,7 +138,7 @@ public:
 		}
 		else
 		{
-			LOG_ERROR("no color found");
+			logger.log("no color found");
 			return false;
 		}
 
@@ -195,13 +198,13 @@ public:
 			}
 			else
 			{
-				LOG_ERROR("No offset or no position");
+				logger.log("No offset or no position");
 				return false;
 			}
 		}
 		else
 		{
-			LOG_ERROR("No position or no parent");
+			logger.log("No position or no parent");
 			return false;
 		}
 	}
